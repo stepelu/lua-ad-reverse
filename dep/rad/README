@@ -1,0 +1,34 @@
+The RAD package is a simple package for Reverse Automatic Differentiation.
+RAD is specialized for function and gradient computations: computing a
+scalar function and its gradient vector (of first partial derivatives).
+
+An overview of and motivation for the RAD package appear in
+"Semiautomatic Differentiation for Efficient Gradient Computations"
+by David M. Gay.
+
+This directory contains source for the RAD package:  rad.h is a
+header file that one must include to use the package; radops.c
+is source for auxiliary routines used by the package.
+
+This directory also contains a source file, demo.c, for a simple
+illustration of using the RAD package.  Comments in demo.c explain
+what it does.  The makefile works under Linux (and might need minor
+tweaks for other systems).
+
+By default, if v and w are of type ADvar, the assignment "v = w;"
+aliases v and w in that if no further assignments to v or w occur,
+then after "ADcontext::Gradcomp();", v.adj() and w.adj() will be
+the same.  To make v.adj() and w.adj() reflect references just to
+v and w, respectively, compile with -DRAD_NO_EQ_ALIAS (i.e., with
+RAD_NO_EQ_ALIAS #defined).  With g++ 3.2.2, it suffices to compile
+radops.c this way, i.e., whether or not radops.c is compiled with
+-DRAD_NO_EQ_ALIAS controls the above aliasing behavior.
+
+David M. Gay (dmgay@sandia.gov)
+Sandia National Laboratories
+Optimization and Uncertainty Estimation Department
+P.O. Box 5800,  MS 0370
+Albuquerque, NM 87185-0370
+U.S.A.
+
+September 2004
